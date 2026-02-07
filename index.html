@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Doremon 💙</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  font-family: 'Comic Sans MS', Arial, sans-serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  background: white;
+  padding: 35px 45px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  z-index: 2;
+}
+
+h1 { color: #e91e63; }
+h2 { color: #555; font-weight: normal; }
+
+button {
+  padding: 12px 28px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+#yes {
+  background: #e91e63;
+  color: white;
+  font-weight: bold;
+}
+
+#no {
+  background: #bbb;
+  position: absolute;
+}
+
+/* floating hearts */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 22px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* explosion hearts */
+.blast {
+  position: fixed;
+  font-size: 26px;
+  animation: blast 1.2s ease-out forwards;
+}
+
+@keyframes blast {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>Hey Doremon 💙</h1>
+  <h2>Will you be my Valentine? 💖</h2>
+  <button id="yes" onclick="yesClicked()">Yes 😍</button>
+</div>
+
+<button id="no">No 🙄</button>
+
+<script>
+const noBtn = document.getElementById("no");
+let noCount = 0;
+
+/* move NO button */
+function moveNo() {
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("click", () => {
+  noCount++;
+  if (noCount <= 2) {
+    moveNo();
+  } else {
+    demonPage();
+  }
+});
+
+noBtn.addEventListener("mouseover", () => {
+  if (noCount < 2) moveNo();
+});
+
+/* YES clicked */
+function yesClicked() {
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      text-align:center;
+      background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+      font-family:'Comic Sans MS', Arial;">
+      
+      <h1 style="color:#e91e63;">Yayyy Doremon 💙🥰</h1>
+      <h2 style="color:#444;">You are officially my Valentine 💖✨</h2>
+
+      <p style="margin-top:25px;font-size:18px;color:#e91e63;">
+        “I gave you only one option because honestly<br>
+        there is no alternative to you, <b>Naaz</b>.” 💕
+      </p>
+    </div>
+  `;
+
+  heartExplosion();
+}
+
+/* demon page */
+function demonPage() {
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      background:linear-gradient(135deg,#000,#8b0000);
+      color:white;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family:'Comic Sans MS', Arial;
+      text-align:center;">
+      <div>
+        <div style="font-size:90px;">😈</div>
+        <h1>GO BACK AND CLICK YES</h1>
+        <h2>u dumb 😤❤️</h2>
+        <button onclick="location.reload()"
+          style="
+            margin-top:20px;
+            padding:12px 25px;
+            font-size:16px;
+            border:none;
+            border-radius:10px;
+            background:#ff4d4d;
+            color:white;
+            cursor:pointer;">
+          ← Go Back
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+/* floating hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
+}
+setInterval(createHeart, 400);
+
+/* heart explosion */
+function heartExplosion() {
+  for (let i = 0; i < 35; i++) {
+    const h = document.createElement("div");
+    h.className = "blast";
+    h.innerHTML = "💖";
+    h.style.left = "50vw";
+    h.style.top = "50vh";
+    h.style.setProperty("--x", (Math.random()*400-200)+"px");
+    h.style.setProperty("--y", (Math.random()*400-200)+"px");
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 1200);
+  }
+}
+</script>
+
+</body>
+</html>
